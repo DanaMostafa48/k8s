@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-app
+  labels:
+    app: todo-app
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: todo-app
+  template:
+    metadata:
+      labels:
+        app: todo-app
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: todo-app
+          image: danamostafa/todo-node:latest
+          ports:
+            - containerPort: 4000
+              name: http
+          env:
+            - name: PORT
+              value: "4000"
+            - name: mongoDbUrl
+              value: "mongodb://10.244.0.117:27017/todo-db"
+            - name: NODE_ENV
+              value: "production"
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "200m"
+      imagePullSecrets:
+        - name: regcred
+
