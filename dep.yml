@@ -30,7 +30,7 @@ spec:
             - name: PORT
               value: "4000"
             - name: mongoDbUrl
-              value: "mongodb://10.244.0.117:27017/todo-db"
+              value: "mongodb://mongo:27017/todo-db"
             - name: NODE_ENV
               value: "production"
           resources:
