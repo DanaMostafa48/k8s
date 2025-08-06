@@ -12,7 +12,8 @@ imagePullSecrets:
 
 # Service Configuration
 service:
-  type: LoadBalancer
+  type:  NodePort
+  nodeport: 30000
   port: 80
   targetPort: 4000
 
